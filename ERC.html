@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website ERC</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="menu">
+<img src="ERC.png"/>
+    <h1> Elins Research Club</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#members">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button id="add-member-btn">Add Member</button>
+  </header>
+
+  <section class="content">
+  <h2>Elins Research Club merupakan komunitas mahasiswa aktif Elektronika dan Instrumentasi yang mewadahi anggotanya dalam melakukan riset dan pengembangan teknologi.
+<div class="logo"><img src="LOGO-WEBDEV.png"/><div/>
+<p>Kami dari kelompok 2 dari divisi Web Development ERC, sebuah divisi di ERC yang bertugas membuat website sebagai wadah bagi mahasiswa Elins yang merupakan anggota ERC.<p/>
+<p>Perkenalkan, berikut ini adalah anggota kelompok 2 ERC :<p/>
+</h2>
+  <div class="team-container">  
+<ul id="members"></ul>
+  </div>
+</section>
+
+
+  <footer class="contact">
+    <h3 id="contact">Contact Us</h3>
+    <p>Instagram : @erc.ugm</p>
+    <p>Email : erc.elinsugm@gmail.com</p>
+  </footer>
+
+  <div id="add-member-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form id="member-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="origin">Origin:</label>
+        <input type="text" id="origin" name="origin" required><br>
+        <label for="hobbies">Hobbies:</label>
+        <input type="text" id="hobbies" name="hobbies"><br>
+        <label for="quotes">Quotes:</label>
+        <input type="text" id="quotes" name="quotes"><br>
+        <label for="reason">Reason to Join ERC:</label>
+        <input type="text" id="reason" name="reason"><br>
+        <label for="social">Social Media:</label>
+        <input type="text" id="social" name="social"><br>
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image"><br>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function convertImageToBase64(image) {
+      const reader = new FileReader();
+      return new Promise((resolve, reject) => {
+        reader.readAsDataURL(image);
+        reader.onloadend = function () {
+          if (reader.result) {
+            resolve(reader.result);
+          } else {
+            reject('Error converting image to base64');
+          }
+        };
+      });
+    }
+
+    // Fungsi untuk membuat item anggota
+    function createMemberItem(member, index) {
+      const memberItem = document.createElement('li');
+      memberItem.classList.add('team-member'); // Menggunakan kelas 'team-member' sesuai dengan CSS
+
+      if (member.image) {
+        const memberItemPreview = document.createElement('img');
+        memberItemPreview.classList.add('member-preview');
+        memberItemPreview.src = member.image;
+        memberItem.appendChild(memberItemPreview);
+      }
+
+      memberItem.innerHTML += `
+        <div>
+          <h3>${member.name}</h3>
+          <p><strong>Origin:</strong> ${member.origin}</p>
+          <p><strong>Hobbies:</strong> ${member.hobbies}</p>
+          <p><strong>Quotes:</strong> ${member.quotes}</p>
+          <p><strong>Reason to Join ERC:</strong> ${member.reason}</p>
+          <p><strong>Social Media:</strong> <a href="${member.social}" target="_blank">${member.social}</a></p>
+          <button class="delete-member-btn" onclick="deleteMember(${index})">Delete</button>
+        </div>
+      `;
+
+      return memberItem;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const memberForm = document.getElementById('member-form');
+      const membersList = document.getElementById('members');
+      const modal = document.getElementById('add-member-modal');
+      const modalClose = document.getElementsByClassName('close')[0];
+
+      // Load existing members from localStorage
+      const existingMembers = JSON.parse(localStorage.getItem('members')) || [];
+      existingMembers.forEach((member, index) => {
+        const memberItem = createMemberItem(member, index);
+        membersList.appendChild(memberItem);
+      });
+
+      memberForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(memberForm);
+        const name = formData.get('name');
+        const origin = formData.get('origin');
+        const hobbies = formData.get('hobbies') || 'N/A';
+        const quotes = formData.get('quotes') || 'N/A';
+        const reason = formData.get('reason') || 'N/A';
+        const social = formData.get('social') || '#';
+        const image = formData.get('image');
+
+        const member = {
+          name,
+          origin,
+          hobbies,
+          quotes,
+          reason,
+          social,
+          image: image ? URL.createObjectURL(image) : null
+        };
+
+        const memberItem = createMemberItem(member, existingMembers.length);
+        membersList.appendChild(memberItem);
+
+        // Save the new member to localStorage
+        existingMembers.push(member);
+        localStorage.setItem('members', JSON.stringify(existingMembers));
+
+        memberForm.reset();
+        modal.style.display = 'none';
+      });
+
+      // Show modal when "Add Member" button is clicked
+      const addMemberButton = document.getElementById('add-member-btn');
+      addMemberButton.addEventListener('click', () => {
+        modal.style.display = 'block';
+      });
+
+      // Close modal when close button is clicked
+      modalClose.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+
+      // Close modal when clicked outside of modal
+      window.addEventListener('click', (event) => {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      });
+    });
+
+    // Function to delete member
+    function deleteMember(index) {
+      let existingMembers = JSON.parse(localStorage.getItem('members')) || [];
+      existingMembers.splice(index, 1);
+      localStorage.setItem('members', JSON.stringify(existingMembers));
+      location.reload(); // Reload the page to reflect changes
+    }
+  </script>
+</body>
+</html>

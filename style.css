@@ -1,0 +1,217 @@
+body {
+ margin: 0;
+ font-family: Arial, sans-serif;
+}
+
+.menu {
+ background-color: white;
+ color: #000000;
+ padding: 20px;
+ text-align: center;
+ position: relative;
+}
+
+h1 {
+font-size: 40px;
+font-weight: bold;
+color: #007bff;
+text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+}
+
+.menu h1 {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ margin: 0;
+}
+
+.menu h1 img {
+ margin-right: 10px;
+}
+
+.menu nav {
+ display: flex;
+ justify-content: center;
+ margin-top: 20px;
+}
+
+.menu nav ul {
+ list-style-type: none;
+ padding: 0;
+}
+
+.menu nav ul li {
+ display: inline;
+ margin-right: 20px;
+}
+
+.menu nav ul li a {
+ text-decoration: none;
+ color: #ffffff;
+ background:linear-gradient(to right, #0d47a1, #1565c0);
+ padding: 10px 15px;
+ border: 1px solid #0d47a1;
+ border-radius: 5px;
+ transition: all 0.3s ease;
+}
+
+.menu nav ul li a:hover {
+ background: linear-gradient(to right, #1565c0, #1976d2);
+transform: translateY(-2px);
+ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.content {
+ background:linear-gradient(to right, #0d47a1, #1565c0);
+ color: #ffffff;
+ padding: 50px;
+ text-align: center;
+}
+
+.logo {
+margin : 10px;
+}
+
+.contact {
+ background-color: white;
+ color: #000000;
+ padding: 20px;
+ text-align: center;
+}
+
+#add-member-btn {
+ position: fixed;
+ top: 20px;
+ right: 20px;
+ background: linear-gradient(to right, #007bff 0%, #00c6fb 100%);
+ color: #ffffff;
+ border: none;
+ border-radius: 5px;
+ padding: 10px 20px;
+ cursor: pointer;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+ transition: all 0.3s ease;
+}
+
+#add-member-btn:hover {
+ background: linear-gradient(to right, #1565c0, #1976d2);
+transform: translateY(-2px);
+ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.modal {
+ display: none;
+ position: fixed;
+ z-index: 1;
+ left: 0;
+ top: 0;
+ width: 100%;
+ height: 100%;
+ background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+ background: linear-gradient(to right, #0d47a1, #1565c0);
+ color: #ffffff;
+ padding: 20px;
+ border-radius: 10px;
+ width: 80%;
+ max-width: 500px;
+ margin: 50px auto;
+}
+
+.close {
+ color: #aaaaaa;
+ float: right;
+ font-size: 28px;
+ font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+ color: #ffffff;
+ text-decoration: none;
+ cursor: pointer;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="file"],
+.modal-content button[type="submit"] {
+ background-color: #ffffff;
+ color: #000000;
+ border: 2px solid #2980b9;
+ padding: 8px 12px;
+ margin-bottom: 10px;
+ border-radius: 5px;
+ width: calc(100% - 20px);
+}
+
+.modal-content input[type="text"]:focus,
+.modal-content input[type="file"]:focus {
+ outline: none;
+ border: 2px solid #2980b9;
+}
+
+.modal-content button[type="submit"] {
+ background: linear-gradient(to right, #007bff 0%, #00c6fb 100%);
+ color: #ffffff;
+ cursor: pointer;
+ width: calc(100% - 20px);
+transition: all 0.3s ease;
+}
+
+.modal-content button[type="submit"]:hover {
+background: linear-gradient(to right, #1565c0, #1976d2);
+transform: translateY(-2px);
+ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.team-member {
+ width: 300px;
+ background-color: #ffffff;
+ color: #000000;
+ border: 2px solid #3498db;
+ border-radius: 10px;
+ margin: 10px auto;
+ padding: 20px;
+ text-align: center;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.team-member:hover {
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+ transform: scale(1.05);
+ transition: all 0.3s ease;
+}
+
+.team-member img {
+ border-radius: 50%;
+ margin-bottom: 10px;
+ border: 2px solid #3498db;
+ max-width: calc(100% - 4px);
+ max-height: calc(100% - 4px);
+}
+
+.team-member div {
+ border-left: 2px solid #ffffff;
+ border-right: 2px solid #ffffff;
+ border-bottom-left-radius: 5px;
+ border-bottom-right-radius: 5px;
+}
+
+.delete-member-btn {
+ background-color: #e74c3c;
+ color: #ffffff;
+ border: none;
+ border-radius: 5px;
+ padding: 5px 10px;
+ cursor: pointer;
+ margin-top: 10px;
+transition: all 0.3s ease;
+}
+
+.delete-member-btn:hover {
+ background-color: #c0392b;
+transform: translateY(-2px);
+ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
